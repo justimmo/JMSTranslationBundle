@@ -51,14 +51,14 @@
         </service>
 
 
-        <service id="jms_translation.updater" class="%jms_translation.updater.class%">
+        <service id="jms_translation.updater" class="%jms_translation.updater.class%" public="true">
             <argument type="service" id="jms_translation.loader_manager" />
             <argument type="service" id="jms_translation.extractor_manager" />
             <argument type="service" id="logger" />
             <argument type="service" id="jms_translation.file_writer" />
         </service>
 
-        <service id="jms_translation.config_factory" class="%jms_translation.config_factory.class%" />
+        <service id="jms_translation.config_factory" class="%jms_translation.config_factory.class%" public="true"/>
 
         <service id="jms_translation.file_source_factory" class="%jms_translation.file_source_factory.class%">
             <argument>%kernel.root_dir%</argument>
@@ -163,6 +163,14 @@
             <argument type="service" id="translator" />
             <argument>%kernel.debug%</argument>
             <tag name="twig.extension" />
+        </service>
+
+        <service id="jms_translation.command.extract" class="JMS\TranslationBundle\Command\ExtractTranslationCommand" public="false">
+            <tag name="console.command" command="translation:extract" />
+        </service>
+
+        <service id="jms_translation.command.list_resources" class="JMS\TranslationBundle\Command\ResourcesListCommand" public="false">
+            <tag name="console.command" command="translation:list-resources" />
         </service>
     </services>
 </container>
